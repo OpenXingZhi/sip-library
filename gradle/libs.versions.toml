@@ -2,23 +2,23 @@
 # https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
 
 [versions]
-com-ceridwen-util-ceridwen-util = "1.8.2"
-commons-beanutils-commons-beanutils = "1.9.4"
-commons-logging-commons-logging = "1.3.1"
-commons-net-commons-net = "3.10.0"
-io-netty-netty-handler = "4.1.108.Final"
-io-netty-netty-transport = "4.1.108.Final"
-junit-junit = "4.13.2"
-org-apache-commons-commons-lang3 = "3.14.0"
+com-ceridwen-util = "1.8.2"
+commons-beanutils = "1.9.4"
+commons-logging = "1.3.1"
+commons-net = "3.10.0"
+io-netty-handler = "4.1.108.Final"
+io-netty-transport = "4.1.108.Final"
+junit = "4.13.2"
+org-apache-commons-lang3 = "3.14.0"
 org-bouncycastle-bcpkix-jdk18on = "1.78"
 
 [libraries]
-com-ceridwen-util-ceridwen-util = { module = "com.ceridwen.util:ceridwen-util", version.ref = "com-ceridwen-util-ceridwen-util" }
-commons-beanutils-commons-beanutils = { module = "commons-beanutils:commons-beanutils", version.ref = "commons-beanutils-commons-beanutils" }
-commons-logging-commons-logging = { module = "commons-logging:commons-logging", version.ref = "commons-logging-commons-logging" }
-commons-net-commons-net = { module = "commons-net:commons-net", version.ref = "commons-net-commons-net" }
-io-netty-netty-handler = { module = "io.netty:netty-handler", version.ref = "io-netty-netty-handler" }
-io-netty-netty-transport = { module = "io.netty:netty-transport", version.ref = "io-netty-netty-transport" }
-junit-junit = { module = "junit:junit", version.ref = "junit-junit" }
-org-apache-commons-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "org-apache-commons-commons-lang3" }
+com-ceridwen-util = { module = "com.ceridwen.util:ceridwen-util", version.ref = "com-ceridwen-util" }
+commons-beanutils = { module = "commons-beanutils:commons-beanutils", version.ref = "commons-beanutils" }
+commons-logging = { module = "commons-logging:commons-logging", version.ref = "commons-logging" }
+commons-net = { module = "commons-net:commons-net", version.ref = "commons-net" }
+io-netty-handler = { module = "io.netty:netty-handler", version.ref = "io-netty-handler" }
+io-netty-transport = { module = "io.netty:netty-transport", version.ref = "io-netty-transport" }
+junit = { module = "junit:junit", version.ref = "junit" }
+org-apache-commons-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "org-apache-commons-lang3" }
 org-bouncycastle-bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "org-bouncycastle-bcpkix-jdk18on" }

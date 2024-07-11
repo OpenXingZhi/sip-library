@@ -9,8 +9,14 @@ plugins {
 
 repositories {
     mavenLocal()
+    mavenCentral()
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
+    }
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/OpenXingZhi/ceridwen-util")
+        credentials(PasswordCredentials::class)
     }
 }
 
@@ -32,6 +38,16 @@ description = "Ceridwen's SIP Circulation Library for Java"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/OpenXingZhi/sip-library")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])

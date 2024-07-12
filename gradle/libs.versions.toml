@@ -19,7 +19,7 @@ commons-net = { module = "commons-net:commons-net", version.ref = "commons-net" 
 io-netty-handler = { module = "io.netty:netty-handler", version.ref = "io-netty-handler" }
 io-netty-transport = { module = "io.netty:netty-transport", version.ref = "io-netty-transport" }
 junit = { module = "junit:junit", version.ref = "junit" }
-org-apache-commons-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "org-apache-commons-lang3" }
+org-apache-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "org-apache-commons-lang3" }
 org-bouncycastle-bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "org-bouncycastle-bcpkix-jdk18on" }
 champeau-openbeans = { module = "me.champeau.openbeans:openbeans", version.ref = "openbeans" }
 

@@ -6,7 +6,7 @@ plugins {
 dependencies {
     implementation(libs.junit)
     implementation(libs.com.ceridwen.util)
-    implementation(libs.org.apache.commons.commons.lang3)
+    implementation(libs.org.apache.commons.lang3)
     implementation(libs.commons.net)
     implementation(libs.commons.logging)
     implementation(libs.commons.beanutils)

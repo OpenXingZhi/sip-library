@@ -12,17 +12,29 @@ description = "Ceridwen's SIP Circulation Library for Android"
 dependencies {
     implementation(project.rootProject)
     implementation(libs.champeau.openbeans)
+    implementation(libs.com.ceridwen.util)
+    shadow(libs.org.apache.commons.lang3)
+    shadow(libs.commons.net)
+    shadow(libs.commons.logging)
+    shadow(libs.commons.beanutils)
 }
 
 tasks.withType<ShadowJar> {
     configurations = listOf(project.configurations.compileClasspath.get())
     dependencies {
-        exclude(dependency("junit:junit"))
-        exclude(dependency("org.hamcrest:hamcrest-core"))
-        exclude(dependency("commons-net:commons-net"))
-        exclude { dep -> dep.moduleGroup == "io.netty" }
+        exclude(dependency(libs.org.apache.commons.lang3.get()))
+        exclude(dependency(libs.commons.logging.get()))
+        exclude(dependency(libs.commons.net.get()))
+        exclude(dependency(libs.commons.beanutils.get()))
+        exclude { dep -> dep.moduleGroup == "commons-collections" }
     }
     relocate("java.beans", "com.googlecode.openbeans")
+    mergeServiceFiles()
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 publishing {

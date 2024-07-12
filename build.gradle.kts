@@ -33,7 +33,7 @@ dependencies {
 }
 
 group = "com.xingzhi.circulation"
-version = "2.11.2"
+version = "2.11.3"
 description = "Ceridwen's SIP Circulation Library for Java"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 

@@ -11,6 +11,7 @@ io-netty-transport = "4.1.108.Final"
 junit = "4.13.2"
 org-apache-commons-lang3 = "3.14.0"
 org-bouncycastle-bcpkix-jdk18on = "1.78"
+openbeans = "1.0.2"
 
 [libraries]
 com-ceridwen-util = { module = "com.ceridwen.util:ceridwen-util", version.ref = "com-ceridwen-util" }
@@ -22,3 +23,4 @@ io-netty-transport = { module = "io.netty:netty-transport", version.ref = "io-ne
 junit = { module = "junit:junit", version.ref = "junit" }
 org-apache-commons-commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "org-apache-commons-lang3" }
 org-bouncycastle-bcpkix-jdk18on = { module = "org.bouncycastle:bcpkix-jdk18on", version.ref = "org-bouncycastle-bcpkix-jdk18on" }
+champeau-openbeans = { module = "me.champeau.openbeans:openbeans", version.ref = "openbeans" }

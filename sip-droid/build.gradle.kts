@@ -11,7 +11,7 @@ description = "Ceridwen's SIP Circulation Library for Android"
 
 dependencies {
     implementation(project.rootProject)
-    shadow(libs.champeau.openbeans)
+    implementation(libs.champeau.openbeans)
 }
 
 tasks.withType<ShadowJar> {

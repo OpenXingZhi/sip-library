@@ -17,7 +17,7 @@ dependencies {
 
 allprojects {
     group = "com.xingzhi.circulation"
-    version = "2.11.5"
+    version = "2.11.6"
 }
 description = "Ceridwen's SIP Circulation Library for Java"
 
@@ -39,12 +39,4 @@ publishing {
             from(components["java"])
         }
     }
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-}
-
-tasks.withType<Javadoc> {
-    options.encoding = "UTF-8"
 }

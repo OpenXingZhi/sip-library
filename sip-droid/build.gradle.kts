@@ -1,6 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.ShadowExtension
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
     alias(libs.plugins.johnrengelman.shadowjar)
     `java-library`
@@ -9,26 +6,21 @@ plugins {
 
 description = "Ceridwen's SIP Circulation Library for Android"
 
-dependencies {
-    implementation(project.rootProject)
-    implementation(libs.champeau.openbeans)
-    implementation(libs.com.ceridwen.util)
-    shadow(libs.org.apache.commons.lang3)
-    shadow(libs.commons.net)
-    shadow(libs.commons.logging)
-    shadow(libs.commons.beanutils)
+configurations {
+    implementation.get().extendsFrom(rootProject.configurations.implementation.get())
 }
 
-tasks.withType<ShadowJar> {
-    configurations = listOf(project.configurations.compileClasspath.get())
-    dependencies {
-        exclude(dependency(libs.org.apache.commons.lang3.get()))
-        exclude(dependency(libs.commons.logging.get()))
-        exclude(dependency(libs.commons.net.get()))
-        exclude(dependency(libs.commons.beanutils.get()))
-        exclude { dep -> dep.moduleGroup == "commons-collections" }
-    }
+dependencies {
+    implementation(libs.champeau.openbeans)
+}
+
+tasks.shadowJar {
+    from(rootProject.sourceSets.main.get().output)
+    archiveClassifier = ""
     relocate("java.beans", "com.googlecode.openbeans")
+    dependencies {
+        exclude(dependency(".*:.*"))
+    }
     mergeServiceFiles()
 }
 
@@ -47,7 +39,11 @@ publishing {
     }
     publications {
         create<MavenPublication>("shadow") {
-            project.extensions.getByType<ShadowExtension>().component(this)
+            from(components["java"])
+            artifacts.clear()
+            artifact(tasks.shadowJar) {
+                classifier = ""
+            }
         }
     }
 }

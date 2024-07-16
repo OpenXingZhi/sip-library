@@ -11,17 +11,14 @@ configurations {
 }
 
 dependencies {
-    shadow(rootProject)
-    implementation(libs.champeau.openbeans)
+    shadow(libs.commons.beanutils)
+    shadow(libs.champeau.openbeans)
 }
 
 tasks.shadowJar {
     archiveClassifier = ""
     relocate("java.beans", "com.googlecode.openbeans")
-    configurations = listOf(project.configurations.compileClasspath.get())
-    dependencies {
-        exclude(dependency(libs.champeau.openbeans.get()))
-    }
+    configurations = listOf(project.configurations.shadow.get())
     mergeServiceFiles()
 }
 

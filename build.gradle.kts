@@ -1,4 +1,5 @@
 plugins {
+    alias(libs.plugins.johnrengelman.shadowjar)
     `java-library`
     `maven-publish`
 }
@@ -12,18 +13,25 @@ dependencies {
     implementation(libs.commons.beanutils)
     implementation(libs.io.netty.transport)
     implementation(libs.io.netty.handler)
-    implementation(libs.org.bouncycastle.bcpkix.jdk18on)
+    runtimeOnly(libs.org.bouncycastle.bcpkix.jdk18on)
+    shadow(libs.champeau.openbeans)
 }
 
-allprojects {
-    group = "com.xingzhi.circulation"
-    version = "2.11.6"
-}
+group = "com.xingzhi.circulation"
+version = "2.11.6"
 description = "Ceridwen's SIP Circulation Library for Java"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.shadowJar {
+    archiveClassifier = "droid"
+    relocate("java.beans", "com.googlecode.openbeans")
+    configurations = listOf(project.configurations.compileClasspath.get())
+    mergeServiceFiles()
+    minimize()
 }
 
 publishing {

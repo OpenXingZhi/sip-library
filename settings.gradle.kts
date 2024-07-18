@@ -11,4 +11,3 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "sip-library"
-include(":sip-droid")

@@ -26,6 +26,14 @@ java {
     targetCompatibility = JavaVersion.VERSION_17
 }
 
+configurations {
+    shadowRuntimeElements {
+        outgoing {
+            capability("com.xingzhi.circulation:sip-droid:$version")
+        }
+    }
+}
+
 tasks.shadowJar {
     archiveClassifier = "droid"
     relocate("java.beans", "com.googlecode.openbeans")

@@ -11,7 +11,7 @@ dependencies {
     implementation(libs.commons.net)
     implementation(libs.commons.logging)
     implementation(libs.commons.beanutils)
-    implementation(libs.io.netty.transport)
+    runtimeOnly(libs.io.netty.transport)
     implementation(libs.io.netty.handler)
     runtimeOnly(libs.org.bouncycastle.bcpkix.jdk18on)
     shadow(libs.champeau.openbeans)
@@ -37,7 +37,12 @@ configurations {
 tasks.shadowJar {
     archiveClassifier = "droid"
     relocate("java.beans", "com.googlecode.openbeans")
+    relocate("org.apache", "shaded")
     configurations = listOf(project.configurations.compileClasspath.get())
+    dependencies {
+        exclude(dependency("junit:junit"))
+        exclude { it.moduleGroup == "io.netty" }
+    }
     mergeServiceFiles()
     minimize()
 }

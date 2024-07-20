@@ -37,14 +37,18 @@ configurations {
 tasks.shadowJar {
     archiveClassifier = "droid"
     relocate("java.beans", "com.googlecode.openbeans")
-    relocate("org.apache", "shaded")
+    relocate("org.apache", "shaded.org.apache")
     configurations = listOf(project.configurations.compileClasspath.get())
     dependencies {
-        exclude(dependency("junit:junit"))
+        // Junit
+        exclude(dependency(libs.junit.get()))
+        exclude(dependency("org.hamcrest:hamcrest-core"))
+        // Already shadow dependency
+        exclude(dependency(libs.champeau.openbeans.get()))
+        // Netty
         exclude { it.moduleGroup == "io.netty" }
     }
     mergeServiceFiles()
-    minimize()
 }
 
 publishing {

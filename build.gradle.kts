@@ -24,6 +24,8 @@ description = "Ceridwen's SIP Circulation Library for Java"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+    withJavadocJar()
+    withSourcesJar()
 }
 
 configurations {

@@ -57,7 +57,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
@@ -283,10 +282,9 @@ public abstract class Message implements Serializable {
         }
         StringBuilder message = new StringBuilder();
 
-        Field[] fields = this.getClass().getDeclaredFields();
-        Field[] parentFields = this.getClass().getSuperclass().getDeclaredFields();
+        Field[] fields = this.getClass().getDeclaredFields(); 
 
-        for (Field fld : Stream.concat(Arrays.stream(fields), Arrays.stream(parentFields)).toArray(Field[]::new)) {
+        for (Field fld : fields) {
           if (fld.isAnnotationPresent(PositionedField.class)) {
             PositionedField annotation = (PositionedField)fld.getAnnotation(PositionedField.class);               
             PositionedFieldDefinition field = Fields.getPositionedFieldDefinition(this.getClass().getName(), fld.getName(), annotation);

@@ -36,7 +36,8 @@ import com.ceridwen.circulation.SIP.messages.SCResend;
 public abstract class Connection {
 	
     private static Log log = LogFactory.getLog(Connection.class);
-    public static final String PROP_RESPONSE_SUFFIX = "com.ceridwen.circulation.SIP.ResponseSuffix";
+    public static final String PROP_REQUEST_SUFFIX = "com.ceridwen.circulation.SIP.transport.RequestSuffix";
+    public static final String PROP_RESPONSE_SUFFIX = "com.ceridwen.circulation.SIP.transport.ResponseSuffix";
 
     private char sequence = '9'; //start at -1 as will be incremented on use
 

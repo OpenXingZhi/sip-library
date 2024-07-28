@@ -125,7 +125,7 @@ public class TelnetConnection extends Connection {
     protected void internalSend(String cmd) throws ConnectionFailure {
         try {
             this.out.write(cmd);
-            this.out.write('\r');
+            this.out.write(System.getProperty(Connection.PROP_REQUEST_SUFFIX, "\r"));
             this.out.flush();
         } catch (Exception ex) {
             throw new ConnectionFailure(ex);

@@ -27,7 +27,7 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 @Sharable
 public class SIPMessageEncoder extends MessageToMessageEncoder<Message> {
 
-	public static final String PROP_REQUEST_SUFFIX = "com.ceridwen.circulation.SIP.RequestSuffix";
+	public static final String PROP_REQUEST_SUFFIX = "com.ceridwen.circulation.SIP.netty.codec.RequestSuffix";
 	
 	public SIPMessageEncoder() {}
 

@@ -16,6 +16,23 @@
  */
 package com.ceridwen.circulation.SIP.messages;
 
+import com.ceridwen.circulation.SIP.annotations.Command;
+import com.ceridwen.circulation.SIP.annotations.PositionedField;
+import com.ceridwen.circulation.SIP.annotations.TaggedField;
+import com.ceridwen.circulation.SIP.annotations.TestCaseDefault;
+import com.ceridwen.circulation.SIP.annotations.TestCasePopulated;
+import com.ceridwen.circulation.SIP.exceptions.ChecksumError;
+import com.ceridwen.circulation.SIP.exceptions.InvalidFieldLength;
+import com.ceridwen.circulation.SIP.exceptions.MandatoryFieldOmitted;
+import com.ceridwen.circulation.SIP.exceptions.MessageNotUnderstood;
+import com.ceridwen.circulation.SIP.exceptions.SequenceError;
+import com.ceridwen.circulation.SIP.fields.FieldDefinition;
+import com.ceridwen.circulation.SIP.fields.FieldPolicy;
+import com.ceridwen.circulation.SIP.fields.Fields;
+import com.ceridwen.circulation.SIP.fields.PositionedFieldDefinition;
+import com.ceridwen.circulation.SIP.fields.TaggedFieldDefinition;
+import com.ceridwen.circulation.SIP.types.enumerations.AbstractEnumeration;
+import com.ceridwen.circulation.SIP.types.flagfields.AbstractFlagField;
 import java.beans.PropertyDescriptor;
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -28,44 +45,24 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.ceridwen.circulation.SIP.annotations.Command;
-import com.ceridwen.circulation.SIP.annotations.PositionedField;
-import com.ceridwen.circulation.SIP.annotations.TaggedField;
-import com.ceridwen.circulation.SIP.annotations.TestCaseDefault;
-import com.ceridwen.circulation.SIP.annotations.TestCasePopulated;
-import com.ceridwen.circulation.SIP.exceptions.ChecksumError;
-import com.ceridwen.circulation.SIP.exceptions.InvalidFieldLength;
-import com.ceridwen.circulation.SIP.exceptions.MandatoryFieldOmitted;
-import com.ceridwen.circulation.SIP.exceptions.MessageNotUnderstood;
-import com.ceridwen.circulation.SIP.exceptions.SequenceError;
-import com.ceridwen.circulation.SIP.fields.FieldDefinition;
-import com.ceridwen.circulation.SIP.fields.Fields;
-import com.ceridwen.circulation.SIP.fields.FieldPolicy;
-import com.ceridwen.circulation.SIP.fields.PositionedFieldDefinition;
-import com.ceridwen.circulation.SIP.fields.TaggedFieldDefinition;
-import com.ceridwen.circulation.SIP.types.enumerations.AbstractEnumeration;
-import com.ceridwen.circulation.SIP.types.flagfields.AbstractFlagField;
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 
 public abstract class Message implements Serializable {
     /**
@@ -682,23 +679,22 @@ public abstract class Message implements Serializable {
 
     private static HashMap<String, Class<? extends Message>> messages = new HashMap<>();
 
+    public static void addMessage(Class<? extends Message> message) {
+        if (message.isAnnotationPresent(Command.class)) {
+            String cmd = message.getAnnotation(Command.class).value();
+            if (cmd.isEmpty()) {
+                throw new java.lang.AssertionError(message.getSimpleName() + " has empty command string.");
+            }
+            Message.messages.put(cmd, message);
+        }
+    }
+
     static {
         for (Messages m: Messages.values()) {
             try {
                 @SuppressWarnings("unchecked")
                 Class<? extends Message> message = (Class<? extends Message>)Class.forName(Messages.class.getPackage().getName() +  "." + m.name());
-                if (message != null) {
-                    if (message.isAnnotationPresent(Command.class)) {
-                        String cmd = ((Command)message.getAnnotation(Command.class)).value();
-                        if (cmd.isEmpty()) {
-                            throw new java.lang.AssertionError(m.name() + " has empty command string.");                                        
-                        }
-                        if (Message.messages.containsKey(cmd)) {
-                            throw new java.lang.AssertionError(m.name() + " duplicates command string.");                                                                    
-                        }
-                        Message.messages.put(cmd, (Class<? extends Message>)message);
-                    }
-                }
+                addMessage(message);
             } catch (ClassNotFoundException ex) {
                 Message.log.warn(m.name() + " not yet implemented.");
             }

@@ -26,12 +26,14 @@ import io.netty.handler.codec.MessageToMessageEncoder;
 
 @Sharable
 public class SIPMessageEncoder extends MessageToMessageEncoder<Message> {
+
+	public static final String PROP_REQUEST_SUFFIX = "com.ceridwen.circulation.SIP.RequestSuffix";
 	
 	public SIPMessageEncoder() {}
 
 	@Override
 	protected void encode(ChannelHandlerContext ctx, Message msg, List<Object> out) throws Exception {
-		out.add(msg.encode() + "\r");
+		out.add(msg.encode() + System.getProperty(SIPMessageEncoder.PROP_REQUEST_SUFFIX, "\r"));
 	}
 }
 
